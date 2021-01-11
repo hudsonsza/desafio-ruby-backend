@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-12">
+    <p>
+      <span><%= link_to "Shops", shops_index_url %></span> ->
+      <span><%= link_to "#{@shop.name} || #{@shop.owner_name}", transactions_index_url(@shop.id) %></span>
+    </p>
+    <h3 class="mb-3"><%= @shop.name %> || <%= @shop.owner_name %></h3>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Transacation type</th>
+          <th scope="col">Amount</th>
+          <th scope="col">CPF</th>
+          <th scope="col">Card Number</th>
+          <th scope="col">Traded_at</th>
+        </tr>
+        </tr>
+      </thead>
+      <tbody>
+        <% @transactions.each do |transaction| %>
+          <tr>
+            <td><%= transaction.id %></td>
+            <td><%= transaction.transaction_type %></td>
+            <td>
+              <% if transaction.amount %>
+                <span class="badge <%= transaction.positive? ? 'badge-success' : 'badge-danger' %>">
+                  <%= number_to_currency(transaction.amount, unit: "R$ ") %>
+                </span>
+              <% end %>
+            </td>
+            <td><%= transaction.cpf %></td>
+            <td><%= transaction.card_number %></td>
+            <td><%= transaction.traded_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

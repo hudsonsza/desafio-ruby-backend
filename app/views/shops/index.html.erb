@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-12">
+    <p>
+      <span><%= link_to "Shops", shops_index_url %></span>
+    </p>
+    <h3 class="mb-3">Shops</h3>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Shop Name</th>
+          <th scope="col">Shop Owner name</th>
+          <th scope="col">Total Balance</th>
+          <th scope="col"></th>
+        </tr>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shops.each do |shop| %>
+          <tr>
+            <td><%= shop.id %></td>
+            <td><%= shop.name %></td>
+            <td><%= shop.owner_name %></td>
+            <td>
+              <span class="badge <%= shop.total_balance.positive? ? 'badge-success' : 'badge-danger' %>">
+                <%= number_to_currency(shop.total_balance, unit: "R$ ") %>
+              </span>
+            </td>
+            <td>
+              <%= link_to "Transactions", transactions_index_url(shop.id), class: "btn btn-info" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= form_for "", url: import_cnab_path, html: { multipart: true } do |form| %>
+      <label for="file">
+        <%= form.file_field :file %>
+      </label>
+      <%= form.submit "Import", class: "btn btn-primary" %>
+    <% end %>
+
+  </div>
+</div>

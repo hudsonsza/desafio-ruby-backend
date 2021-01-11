@@ -1,0 +1,26 @@
+version: '2'
+services:
+  app:
+    build: .
+    command: make development
+    volumes:
+      - ./:/src
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    networks:
+      - default
+    stdin_open: true
+    tty: true
+  db:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=desafiopass
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - default

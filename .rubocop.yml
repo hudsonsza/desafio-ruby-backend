@@ -1,0 +1,18 @@
+AllCops:
+  Exclude:
+    - Berksfile
+    - recipes/basic.rb
+    - attributes/*.rb
+
+# Customize rules
+Layout/LineLength:
+  Max: 120
+
+MethodLength:
+  Max: 35
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  Max: 70
